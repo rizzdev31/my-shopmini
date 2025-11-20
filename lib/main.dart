@@ -337,34 +337,28 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: 35),
                 
                 // Categories Title
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Kategori',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.06,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF2D3748),
-                      ),
-                    ),
-                    Text(
-                      'Lihat Semua',
-                      style: TextStyle(
-                        fontSize: screenWidth * 0.035,
-                        color: Color(0xFF4ECDC4),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
+                Text(
+                  'Kategori',
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.06,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2D3748),
+                  ),
                 ),
                 SizedBox(height: 18),
                 
-                // Categories List
-                ...categories.map((category) => Padding(
-                  padding: EdgeInsets.only(bottom: 15),
-                  child: CategoryCard(category: category),
-                )).toList(),
+                // Categories Row (3 Cards Horizontal)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: categories.map((category) {
+                    return Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        child: CategoryCard(category: category),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 
                 SizedBox(height: 20),
               ],
@@ -376,7 +370,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Category Card Widget
+// Category Card Widget - Horizontal Compact Design
 class CategoryCard extends StatelessWidget {
   final Category category;
 
@@ -394,7 +388,7 @@ class CategoryCard extends StatelessWidget {
         );
       },
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 8),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(20),
@@ -406,7 +400,8 @@ class CategoryCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               padding: EdgeInsets.all(16),
@@ -420,34 +415,23 @@ class CategoryCard extends StatelessWidget {
                 color: category.color,
               ),
             ),
-            SizedBox(width: 18),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    category.name,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF2D3748),
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    '${category.productCount} produk tersedia',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Color(0xFF718096),
-                    ),
-                  ),
-                ],
+            SizedBox(height: 12),
+            Text(
+              category.name,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2D3748),
               ),
+              textAlign: TextAlign.center,
             ),
-            Icon(
-              Icons.arrow_forward_ios,
-              color: Color(0xFFCBD5E0),
-              size: 18,
+            SizedBox(height: 4),
+            Text(
+              '${category.productCount}',
+              style: TextStyle(
+                fontSize: 12,
+                color: Color(0xFF718096),
+              ),
             ),
           ],
         ),
